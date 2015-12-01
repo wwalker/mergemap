@@ -41,7 +41,7 @@ func mapify(i interface{}) (map[string]interface{}, bool) {
 	if value.Kind() == reflect.Map {
 		m := map[string]interface{}{}
 		for _, k := range value.MapKeys() {
-			m[k.String()] = value.MapIndex(k).Interface()
+			m[k.Interface().(string)] = value.MapIndex(k).Interface()
 		}
 		return m, true
 	}

@@ -47,6 +47,11 @@ func TestMerge(t *testing.T) {
 			dst:      `{"1": {        "2": { "3": {"a":"A",        "n":"xxx"} }, "a":3 }}`,
 			expected: `{"1": { "b":1, "2": { "3": {"a":"A", "b":3, "n":[1,2]} }, "a":3 }}`,
 		},
+		{
+			dst:      `{"data_resources": { "mysql_stream_mapping": { "dev":"3306", "A":"3306", "B":"3307", "C":"3308"}}}`,
+			src:      `{"data_resources": { "mysql_stream_mapping": {               "A":"3308",                         "5": {"host":"asdf", "port":"3310"}}}}`,
+			expected: `{"data_resources": { "mysql_stream_mapping": { "dev":"3306", "A":"3308", "B":"3307", "C":"3308", "5": {"host":"asdf", "port":"3310"}}}}`,
+		},
 	} {
 		var dst map[string]interface{}
 		if err := json.Unmarshal([]byte(tuple.dst), &dst); err != nil {
